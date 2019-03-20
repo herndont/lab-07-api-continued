@@ -20,8 +20,15 @@ app.get('/location', getLocation);
 // Keys: forecast, time
 app.get('/weather', getWeather);
 
+
+
 // TODO: create a getMeetups function
+// [ { link:,
+// name:,
+// creation_date:,
+// host:}, ]
 // app.get('/meetups', getMeetups);
+app.get('/meetups', getMeetups);
 
 // TODO: create a getYelp function
 // app.get('/yelp', getYelp);
@@ -62,6 +69,16 @@ function getWeather(req, res) {
     .catch(error => handleError(error));
 }
 
+// returns array of 20 meetup objects
+function getMeetups(req, res) {
+  const meetupUrl = `https://api.meetup.com/find/upcoming_events?lat=${req.query.data.latitude}&lon=${req.query.data.longitude}&sign=true&key=${process.env.MEETUP_API_KEY}&page=20`;
+
+  return superagent.get(meetupUrl)
+    .then( meetupResults => {
+      console.log(meetupResults.body.events[0]);
+    })
+    .catch(error => handleError(error));
+}
 
 // Location object constructor
 function Location(data, query) {
