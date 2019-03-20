@@ -70,3 +70,17 @@ Start time: 11:15am
 Finish time: 12:20pm
 
 Actual time needed to complete: 1:05 minutes
+
+----------------------------------------------------------------------------------------------------------
+Day 02
+
+Number and name of feature: Errors
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 11:15am
+
+Finish time: 12:20pm
+
+Actual time needed to complete: 1:05 minutes
+
