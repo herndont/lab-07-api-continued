@@ -26,6 +26,8 @@ app.get('/weather', getWeather);
 // TODO: create a getYelp function
 // app.get('/yelp', getYelp);
 
+// '*' route for invalid endpoints
+app.use('*', (req, res) => res.send('Sorry, that route does not exist'));
 
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
 
@@ -41,7 +43,6 @@ function getLocation(req, res) {
   const mapsURL = `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.GOOGLE_MAPS_API_KEY}&address=${req.query.data}`;
   return superagent.get(mapsURL)
     .then(result => {
-      console.log(result);
       res.send(new Location(result.body.results[0], req.query.data));
     })
     .catch(error => handleError(error));
@@ -64,7 +65,6 @@ function getWeather(req, res) {
 
 // Location object constructor
 function Location(data, query) {
-  console.log(data);
   this.search_query = query;
   this.formatted_query = data.formatted_address;
   this.latitude = data.geometry.location.lat;
