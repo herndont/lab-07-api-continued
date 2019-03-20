@@ -75,7 +75,11 @@ function getMeetups(req, res) {
 
   return superagent.get(meetupUrl)
     .then( meetupResults => {
-      console.log(meetupResults.body.events[0]);
+      console.log(meetupResults.body.events);
+      const meetupList = meetupResults.body.events.map((event) => {
+        return new MeetupEvent(event);
+      });
+      res.send(meetupList);
     })
     .catch(error => handleError(error));
 }
@@ -92,4 +96,12 @@ function Location(data, query) {
 function Forecast(day) {
   this.forecast = day.summary;
   this.time = new Date(day.time*1000).toString().slice(0,15);
+}
+
+// Meetup event object constructor
+function MeetupEvent(event) {
+  this.link = event.link;
+  this.name = event.name;
+  this.creation_date = new Date(event.time).toString().slice(0, 15);
+  this.host = event.group.name;
 }
